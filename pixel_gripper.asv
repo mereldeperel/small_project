@@ -1,6 +1,5 @@
 clc
 close all
-clear classes
 
 format compact
 
@@ -18,9 +17,6 @@ format compact
 %% CONFIG
 
 % ENVIRONMENT
-global env 
-
-
     % size workspace
     env.xsize = 20;
     env.ysize = 20;
@@ -33,33 +29,18 @@ global env
 % GA
     pop_size = 5;
     
-    
-%  initial population stuff
-    nofPoints = 3;
 %% init workspace
 % plotworkspace(env);
 
-%% Generate blob population
+%% Generate blob
+Blobcollection = GMX(env, 7);
 
-pop = [];
+[labelarray, labellist, labelarraytemp, sizelist, Blob] = detectblob(Blobcollection);
 
-for yy=1:pop_size
-    geno = [];
-    for points = 1:nofPoints
-        sig = max(abs(randn), 0.3);
-        meanx = rand* env.xsize;
-        meany = rand* env.ysize;
-        geno = [geno, meanx, meany, sig]; 
-    end
-    aa =  Blob(geno);
-    aa.GMX();
-    pop = [pop, aa];
-end
-    
-% plotblobdetect(Blobcollection, 10)
+plotblobdetect(Blobcollection, 10)
 % plotblobdetect(labelarray, 12)
 % plotblobdetect(labelarraytemp, 11)
-% plotblobdetect(Blob, 14)
 
-pop(2)
+
+
 

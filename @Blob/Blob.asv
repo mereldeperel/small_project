@@ -1,0 +1,27 @@
+classdef (ConstructOnLoad) Blob
+   properties
+      fitness % scalar
+      pheno % matrix of env size
+      geno % vecotr with tipple [x,y, sigma] for every gaussian point
+      phenospace
+   end
+   
+   methods
+       function b = Blob(gen)
+            % contructor
+            if(nargin > 0)
+                b.geno = gen;
+            else
+                b.geno = [1, 1, 1];
+            end
+       end
+       
+        phenospace = GMX(geno);
+        fitness = FITNESS(pheno);
+        
+   end % methods
+    methods (Static=true)
+          pheno = detectblob(phenospace);
+    end
+    
+end % classdef
