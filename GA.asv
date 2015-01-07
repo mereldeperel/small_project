@@ -18,9 +18,9 @@ while ~STOP
     %% elite and kill stupids
 
     % save the perc_elite% best, kill the perc_kill% stupidest
-    elite_int = ceil(perc_elite * length(pop));
-    kill_int = ceil(perc_kill * length(pop));
-    vacancies = length(pop) - elite_int - kill_int;
+    elite_int = ceil(perc_elite * length(pop))
+    kill_int = ceil(perc_kill * length(pop))
+    vacancies = length(pop) - elite_int - kill_int
 
     newpop  = pop(1:elite_int);
     pop = pop(1:end-kill_int);

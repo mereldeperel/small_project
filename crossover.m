@@ -26,11 +26,10 @@ for aa= 1:nof_locs
 end
 
 if mod(nof_locs, 2) == 1
-    child = [child, dad(LL(end):end)];
+    child = [child, dad(LL(end)+1:end)];
 else
-    child = [child, mom(LL(end):end)];
+    child = [child, mom(LL(end)+1:end)];
 end
-
 
 
         

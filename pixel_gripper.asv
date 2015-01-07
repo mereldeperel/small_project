@@ -1,5 +1,6 @@
 clc
 close all
+clear classes
 
 format compact
 
@@ -17,6 +18,9 @@ format compact
 %% CONFIG
 
 % ENVIRONMENT
+global env 
+
+
     % size workspace
     env.xsize = 20;
     env.ysize = 20;
@@ -25,22 +29,53 @@ format compact
     env.object = [17, 20; 8, 14];
 
     env.x_loc_boundary = 10;
+    
+    % sigma used as max during init population
+    env.init_sigma = 0.3;
 
 % GA
     pop_size = 5;
     
+    
+%  initial population stuff
+    nofPoints = 3;
 %% init workspace
 % plotworkspace(env);
 
-%% Generate blob
-Blobcollection = GMX(env, 7);
+%% Generate blob population
 
-[labelarray, labellist, labelarraytemp, sizelist, Blob] = detectblob(Blobcollection);
+pop = [];
 
-plotblobdetect(Blobcollection, 10)
+for yy=1:pop_size
+    geno = [];
+    for points = 1:nofPoints
+        sig = max(abs(randn), env.init_sigma);
+        meanx = rand* env.xsize;
+        meany = rand* env.ysize;
+        geno = [geno, meanx, meany, sig]; 
+    end
+    aa =  Blob(geno);
+    aa.GMX();
+    aa.FITNESS();
+    pop = [pop, aa];
+end
+    
+% plotblobdetect(Blobcollection, 10)
 % plotblobdetect(labelarray, 12)
 % plotblobdetect(labelarraytemp, 11)
+% plotblobdetect(Blob, 14)
 
+%% GA
+perc_elite = 0.1;  
+perc_kill = 0.1; 
+mutRate = 0.1; 
+stopcrit = 0.005; 
+maxgens = 10;
 
+[pop, nofgens] = GA(pop, perc_elite, perc_kill, mutRate, stopcrit, maxgens);
 
+mean_fitness = mean([pop.fitness])
+pop(1).fitness
+nofgens
 
+plotblobdetect(pop(1))

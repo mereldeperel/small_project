@@ -2,7 +2,7 @@ function [F] = GMX(env, nofPoints)
 
     F = zeros(env.xsize +1 ,env.xsize +1);
     for points = 1:nofPoints
-        sig = max(abs(randn), 0.3);
+        sig = max(abs(randn), env.init_sigma);
         meanx = rand* env.xsize;
         meany = rand* env.ysize;
         for x = 0:env.xsize;

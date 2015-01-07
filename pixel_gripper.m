@@ -29,6 +29,9 @@ global env
     env.object = [17, 20; 8, 14];
 
     env.x_loc_boundary = 10;
+    
+    % sigma used as max during init population
+    env.init_sigma = 0.3;
 
 % GA
     pop_size = 5;
@@ -46,7 +49,7 @@ pop = [];
 for yy=1:pop_size
     geno = [];
     for points = 1:nofPoints
-        sig = max(abs(randn), 0.3);
+        sig = max(abs(randn), env.init_sigma);
         meanx = rand* env.xsize;
         meany = rand* env.ysize;
         geno = [geno, meanx, meany, sig]; 
@@ -63,5 +66,17 @@ end
 % plotblobdetect(Blob, 14)
 
 %% GA
+perc_elite = 0.1;  
+perc_kill = 0.1; 
+mutRate = 0.1; 
+stopcrit = 0.005; 
+maxgens = 20;
 
-[pop, nofgens] = GA(pop, perc_elite, perc_kill, mutRate, stopcrit, maxgens)
+[pop, nofgens] = GA(pop, perc_elite, perc_kill, mutRate, stopcrit, maxgens);
+
+
+popfitness = sort([pop.fitness])
+best_geno = pop(1).geno
+nofgens
+
+plotblobdetect(pop(1).pheno, 2)
