@@ -69,25 +69,27 @@ end
 
 labelarraytemp = labelarray;
 
-for ee = 1:length(equiv)
-    maxlab = max(equiv(ee,:));
-    minlab = min(equiv(ee,:));
-    if minlab ~= 0
-        % blob map
-        change_indices = find(labelarray == maxlab);
-        if change_indices ~= 0 
-            for bb = 1:length(change_indices)
-                labelarray(change_indices(bb)) = minlab;
+if ~isempty(equiv)
+    for ee = 1:size(equiv, 1)
+        maxlab = max(equiv(ee,:));
+        minlab = min(equiv(ee,:));
+        if minlab ~= 0
+            % blob map
+            change_indices = find(labelarray == maxlab);
+            if change_indices ~= 0 
+                for bb = 1:length(change_indices)
+                    labelarray(change_indices(bb)) = minlab;
+                end
             end
-        end
-        % equiv array itself
-        change_indices = find(equiv(1:length(equiv), :) == maxlab);
-        if change_indices ~= 0 
-            for bb = 1:length(change_indices)
-                equiv(change_indices(bb)) = minlab;
+            % equiv array itself
+            change_indices = find(equiv(1:size(equiv, 1), :) == maxlab);
+            if change_indices ~= 0 
+                for bb = 1:length(change_indices)
+                    equiv(change_indices(bb)) = minlab;
+                end
             end
-        end
-    end    
+        end    
+    end
 end
 
 labellist = [];

@@ -53,6 +53,7 @@ for yy=1:pop_size
     end
     aa =  Blob(geno);
     aa.GMX();
+    aa.FITNESS();
     pop = [pop, aa];
 end
     
@@ -61,5 +62,6 @@ end
 % plotblobdetect(labelarraytemp, 11)
 % plotblobdetect(Blob, 14)
 
-pop(2)
+%% GA
 
+[pop, nofgens] = GA(pop, perc_elite, perc_kill, mutRate, stopcrit, maxgens)
